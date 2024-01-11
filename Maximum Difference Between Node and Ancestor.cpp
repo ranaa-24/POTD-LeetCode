@@ -31,3 +31,26 @@ public:
         return maxDiff;
     }
 };
+
+
+//Eficient approach..
+
+class Solution {
+public:
+    int getDiff(TreeNode* root, int maxi, int mini){
+        if(root==nullptr)
+            return abs(maxi - mini);
+        
+        maxi = max(maxi, root->val);
+        mini = min(mini, root->val);
+
+        //find deff in left
+        int l = getDiff(root->left, maxi, mini);
+        int r = getDiff(root->right, maxi, mini);
+
+        return max(l, r);
+    }
+    int maxAncestorDiff(TreeNode* root) {
+        return getDiff(root, INT_MIN, INT_MAX);
+    }
+};
